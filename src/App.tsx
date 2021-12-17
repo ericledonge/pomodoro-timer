@@ -3,13 +3,38 @@ import './App.css';
 import React, { useEffect, useState } from 'react';
 
 import gear from './assets/images/gear.svg';
-import Time from './components/Time';
+import {
+  extractMinutesFromRemainingTimeInSeconds,
+  extractSecondsFromRemainingTimeInSeconds,
+  toTime,
+} from './helpers/dates';
 
 function App() {
   const [isRunning, setIsRunning] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const [remainingTimeInSeconds, setRemainingTimeInSeconds] = useState(900);
+
+  const [minutesDisplayed, setMinutesDisplayed] = useState(
+    toTime(extractMinutesFromRemainingTimeInSeconds(remainingTimeInSeconds)),
+  );
+  const [secondsDisplayed, setSecondsDisplayed] = useState(
+    toTime(extractSecondsFromRemainingTimeInSeconds(remainingTimeInSeconds)),
+  );
+
+  const handleMinutesChange = (minutesInput: number) => {
+    if (minutesInput < 60) {
+      setMinutesDisplayed(toTime(minutesInput));
+      setRemainingTimeInSeconds(minutesInput * 60 + parseInt(secondsDisplayed));
+    }
+  };
+
+  const handleSecondsChange = (secondsInput: number) => {
+    if (secondsInput < 60) {
+      setSecondsDisplayed(toTime(secondsInput));
+      setRemainingTimeInSeconds(parseInt(minutesDisplayed) * 60 + secondsInput);
+    }
+  };
 
   useEffect(() => {
     let interval: number;
@@ -22,6 +47,13 @@ function App() {
   }, [isRunning, remainingTimeInSeconds]);
 
   useEffect(() => {
+    setMinutesDisplayed(
+      toTime(extractMinutesFromRemainingTimeInSeconds(remainingTimeInSeconds)),
+    );
+    setSecondsDisplayed(
+      toTime(extractSecondsFromRemainingTimeInSeconds(remainingTimeInSeconds)),
+    );
+
     if (isRunning && remainingTimeInSeconds === 0) {
       setIsRunning(false);
       setIsFinished(true);
@@ -48,10 +80,6 @@ function App() {
     setIsEditMode(true);
   };
 
-  const handleUpdateRemainingTime = ({ minutes, seconds }: any) => {
-    setRemainingTimeInSeconds(minutes * 60 + seconds);
-  };
-
   return (
     <div className="wrapper">
       <div className={`ring ${isFinished ? 'ending' : ''}`}>
@@ -61,11 +89,27 @@ function App() {
       </div>
 
       <div className="timer">
-        <Time
-          remainingTimeInSeconds={remainingTimeInSeconds}
-          isEditMode={isEditMode}
-          handleUpdateRemainingTime={handleUpdateRemainingTime}
-        />
+        <div className="time">
+          <div className="minutes">
+            <input
+              type="text"
+              value={minutesDisplayed}
+              onChange={(e) => handleMinutesChange(parseInt(e.target.value))}
+              disabled={!isEditMode}
+            />
+          </div>
+
+          <div className="colon">:</div>
+
+          <div className="seconds">
+            <input
+              type="text"
+              value={secondsDisplayed}
+              onChange={(e) => handleSecondsChange(parseInt(e.target.value))}
+              disabled={!isEditMode}
+            />
+          </div>
+        </div>
 
         <button onClick={handleStartStopClick} className="start">
           {isRunning ? 'paused' : 'start'}
