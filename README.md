@@ -1,6 +1,22 @@
-Je suis en train de faire le premier challenge du calendrier de l'avent JS de James Q Quick: https://www.adventofjs.com/, c'est un podomoro timer dans lequel, tu peux éditer les minutes et secondes directement dans le timer.
-J'ai décidé de gérer la durée dans un composant parent: App et le timer/formulaire, dans un composant Timer. Et je me casse les dents sévèrement dessus avec la mise à jour de la durée quand j'édite les champs minutes et secondes.
-Si quelqu'un a quelques minutes pour aller jeter un oeil:
-Tu peux aller jouer avec ma version ici: https://agitated-payne-f2d9c9.netlify.app/
-Et mon répo est ici: https://github.com/ericledonge/pomodoro-timer/tree/main/src
-Pour avoir les specs et une démo du produit final, il faut s'inscrire sur https://www.adventofjs.com/free.
+#Pomodoro Timer
+
+![](resources/timer-image.png)
+
+Project inspired by James Q Quick initiative [Advent of Javascript](https://www.adventofjs.com/)
+
+#Specs
+
+Users should be able to:
+
+- Start the timer by clicking on the start link/button.
+- Once the user clicks start, the word start will change to stop. Then, the user can click on the stop button to make the timer stop.
+- Click on the gear icon to change the length (minutes and seconds) of the timer.
+- Once the timer finishes, the ring should change from green to red and an alert message is passed to the browser.
+
+#Demo
+
+You can use it there: https://agitated-payne-f2d9c9.netlify.app/
+
+#Tech Stack
+
+React, TypeScript, Vite, Jest, Eslint, Prettier.
