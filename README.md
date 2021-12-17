@@ -1,10 +1,10 @@
-#Pomodoro Timer
+# Pomodoro Timer
 
 ![](resources/timer-image.png)
 
 Project inspired by James Q Quick initiative [Advent of Javascript](https://www.adventofjs.com/)
 
-#Specs
+# Specs
 
 Users should be able to:
 
@@ -13,10 +13,10 @@ Users should be able to:
 - Click on the gear icon to change the length (minutes and seconds) of the timer.
 - Once the timer finishes, the ring should change from green to red and an alert message is passed to the browser.
 
-#Demo
+# Demo
 
 You can use it there: https://agitated-payne-f2d9c9.netlify.app/
 
-#Tech Stack
+# Tech Stack
 
 React, TypeScript, Vite, Jest, Eslint, Prettier.
